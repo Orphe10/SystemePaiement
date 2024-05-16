@@ -1,6 +1,7 @@
 @extends('layaouts.website')
 
 @section('content')
+<link rel="stylesheet" href="{{asset('css/UserStyle.css')}}">
 <div class="container">
     <div class="row">
         <div class="col-md-6 offset-md-3">
@@ -52,30 +53,4 @@
     </div>
 </div>
 
-<style>
-    .btn-color {
-        background-color: #0e1c36;
-        color: #fff;
-
-    }
-
-    .profile-image-pic {
-        height: 200px;
-        width: 200px;
-        object-fit: cover;
-    }
-
-
-
-    .cardbody-color {
-        background-color: #ebf2fa;
-    }
-
-    a {
-        text-decoration: none;
-    }
-    .ok{
-        background-color: #0e1c36
-    }
-</style>
 @endsection
