@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\UseAuthController;
+use App\Http\Controllers\VendorAuthController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,3 +36,11 @@ Route::middleware('guest')->group(function () {
 
 //Déconnexion
 Route::get('/logout', [UseAuthController::class, 'handlelogout'])->name('Logout');
+
+
+//Route pour l'ensemble des vendeurs
+Route::prefix('vendors/account')->group(function(){
+    Route::get('login',[VendorAuthController::class,'login'])->name('VendorsLogin');
+    Route::get('register',[VendorAuthController::class,'register'])->name('VendorsRegister');
+    Route::post('register',[VendorAuthController::class,'register'])->name('VendorsRegister');
+});
