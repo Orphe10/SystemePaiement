@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Exception;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\UserAuthRequest;
+use App\Http\Requests\LoginAuthRequest;
 
 class UseAuthController extends Controller
 {
@@ -26,9 +28,24 @@ class UseAuthController extends Controller
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
             ]);
-            return redirect()->back()->with('success', 'Votre compte a été crée, connectez vous');
+            return redirect()->route('HandleUserLogin')->with('success', 'Votre compte a été crée, connectez vous');
         } catch (Exception $e) {
             dd($e);
         }
+    }
+    public function handlelogin(LoginAuthRequest $request){
+        try {
+            if(auth()->attempt($request->only('email', 'password'))){
+                return redirect('/');
+            }else{
+                return redirect()->back()->with('error','Information de connecxion non reconnu.');
+            }
+        } catch (Exception $e) {
+            dd($e);
+        }
+    }
+    public function handlelogout(){
+        Auth::logout();
+        return redirect('/');
     }
 }

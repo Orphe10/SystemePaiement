@@ -23,6 +23,7 @@
                     <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
                 </button>
             </form>
+            @guest
             <div>
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-2">
                     <li class="nav-item dropdown">
@@ -30,11 +31,15 @@
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="{{route('user-register')}}">Céer mon compte</a></li>
                             <li><hr class="dropdown-divider" /></li>
-                            <li><a class="dropdown-item" href="#!">Me connecter</a></li>
+                            <li><a class="dropdown-item" href="{{route('user_login')}}">Se connecter</a></li>
                         </ul>
                     </li>
                 </ul>
             </div>
+            @endguest
+            @auth
+                <a href="{{route('Logout')}}" class="btn btn-danger ms-3">Déconnexion</a>
+            @endauth
         </div>
     </div>
 </nav>
