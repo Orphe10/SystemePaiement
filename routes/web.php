@@ -3,6 +3,7 @@
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\UseAuthController;
 use App\Http\Controllers\VendorAuthController;
+use App\Http\Controllers\VendorsDashboardController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -37,10 +38,17 @@ Route::middleware('guest')->group(function () {
 //Déconnexion
 Route::get('/logout', [UseAuthController::class, 'handlelogout'])->name('Logout');
 
-
 //Route pour l'ensemble des vendeurs
-Route::prefix('vendors/account')->group(function(){
-    Route::get('login',[VendorAuthController::class,'login'])->name('VendorsLogin');
-    Route::get('register',[VendorAuthController::class,'register'])->name('VendorsRegister');
-    Route::post('register',[VendorAuthController::class,'register'])->name('VendorsRegister');
+Route::prefix('vendors/account')->group(function () {
+    //Routes d'inscription des vendeurs
+    Route::get('login', [VendorAuthController::class, 'login'])->name('VendorsLogin');
+    Route::post('login', [VendorAuthController::class, 'vendorhandlelogin'])->name('HandleVendorsLogin');
+    //Routes de connexion des vendeurs
+    Route::get('register', [VendorAuthController::class, 'register'])->name('VendorsRegister');
+    Route::post('register', [VendorAuthController::class, 'vendorhandleregister'])->name('HandleVendorsRegister');
+});
+//Ensemble des routes ou l'on doit se connecter avant d'avoir acces.
+Route::middleware('vendor_middleware')->prefix('vendors/dashboard')->group(function () {
+    Route::get('/', [VendorsDashboardController::class, 'index'])->name('VendorsDashboard');
+    Route::get('/logout', [VendorsDashboardController::class, 'logout'])->name('VendorsLogout');
 });
