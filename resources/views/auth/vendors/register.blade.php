@@ -11,7 +11,10 @@
                 @if(Session::get('success'))
                 <div class="alert alert-success py-3">{{Session::get('success')}}</div>
                 @endif
-                <form class="card-body cardbody-color p-lg-5" action="{{route('VendorsRegister')}}" method="POST">
+                @if(Session::get('error'))
+                <div class="alert alert-danger py-3">{{Session::get('error')}}</div>
+                @endif
+                <form class="card-body cardbody-color p-lg-5" action="{{route('HandleVendorsRegister')}}" method="POST">
                     @method('post')
                     @csrf
                     <div class="text-center">
